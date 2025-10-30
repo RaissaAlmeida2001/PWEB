@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercício 2 - Conta Bancária com Escolha</title>
+</head>
+<body>
+  <h1>Escolha o tipo de conta</h1>
+  <button onclick="criarCorrente()">Criar Conta Corrente</button>
+  <button onclick="criarPoupanca()">Criar Conta Poupança</button>
+
+  <script>
+    class Conta {
+      constructor(nomeCorrentista, banco, numeroConta, saldo) {
+        this._nomeCorrentista = nomeCorrentista;
+        this._banco = banco;
+        this._numeroConta = numeroConta;
+        this._saldo = saldo;
+      }
+
+      get nomeCorrentista() { return this._nomeCorrentista; }
+      set nomeCorrentista(valor) { this._nomeCorrentista = valor; }
+
+      get banco() { return this._banco; }
+      set banco(valor) { this._banco = valor; }
+
+      get numeroConta() { return this._numeroConta; }
+      set numeroConta(valor) { this._numeroConta = valor; }
+
+      get saldo() { return this._saldo; }
+      set saldo(valor) { this._saldo = valor; }
+
+      mostrarDados() {
+        return `Nome: ${this._nomeCorrentista}\nBanco: ${this._banco}\nConta: ${this._numeroConta}\nSaldo: R$ ${this._saldo.toFixed(2)}`;
+      }
+    }
+
+    class Corrente extends Conta {
+      constructor(nomeCorrentista, banco, numeroConta, saldo, saldoEspecial) {
+        super(nomeCorrentista, banco, numeroConta, saldo);
+        this._saldoEspecial = saldoEspecial;
+      }
+
+      get saldoEspecial() { return this._saldoEspecial; }
+      set saldoEspecial(valor) { this._saldoEspecial = valor; }
+
+      mostrarDados() {
+        return super.mostrarDados() + `\nSaldo Especial: R$ ${this._saldoEspecial.toFixed(2)}`;
+      }
+    }
+
+    class Poupanca extends Conta {
+      constructor(nomeCorrentista, banco, numeroConta, saldo, juros, dataVencimento) {
+        super(nomeCorrentista, banco, numeroConta, saldo);
+        this._juros = juros;
+        this._dataVencimento = dataVencimento;
+      }
+
+      get juros() { return this._juros; }
+      set juros(valor) { this._juros = valor; }
+
+      get dataVencimento() { return this._dataVencimento; }
+      set dataVencimento(valor) { this._dataVencimento = valor; }
+
+      mostrarDados() {
+        return super.mostrarDados() + `\nJuros: ${this._juros}%\nVencimento: ${this._dataVencimento}`;
+      }
+    }
+
+    function criarCorrente() {
+      alert("=== Criando Conta Corrente ===");
+      let nome = prompt("Nome do correntista:");
+      let banco = prompt("Banco:");
+      let numero = prompt("Número da conta:");
+      let saldo = parseFloat(prompt("Saldo:"));
+      let saldoEsp = parseFloat(prompt("Saldo especial:"));
+
+      let conta = new Corrente(nome, banco, numero, saldo, saldoEsp);
+      alert("Dados da Conta Corrente:\n\n" + conta.mostrarDados());
+    }
+
+    function criarPoupanca() {
+      alert("=== Criando Conta Poupança ===");
+      let nome = prompt("Nome do correntista:");
+      let banco = prompt("Banco:");
+      let numero = prompt("Número da conta:");
+      let saldo = parseFloat(prompt("Saldo:"));
+      let juros = parseFloat(prompt("Juros (%):"));
+      let venc = prompt("Data de vencimento:");
+
+      let conta = new Poupanca(nome, banco, numero, saldo, juros, venc);
+      alert("Dados da Conta Poupança:\n\n" + conta.mostrarDados());
+    }
+  </script>
+</body>
+</html>
